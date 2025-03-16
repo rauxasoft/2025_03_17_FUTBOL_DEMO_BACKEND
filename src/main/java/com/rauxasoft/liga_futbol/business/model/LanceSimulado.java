@@ -86,4 +86,10 @@ public class LanceSimulado implements Serializable {
 		this.comentario = comentario;
 	}
 
+	@Override
+	public String toString() {
+		return "LanceSimulado [id=" + id + ", instanteTiempo=" + instanteTiempo + ", minuto=" + minuto + ", idPartido="
+				+ idPartido + ", idLance=" + idLance + ", comentario=" + comentario + "]";
+	}
+	
 }

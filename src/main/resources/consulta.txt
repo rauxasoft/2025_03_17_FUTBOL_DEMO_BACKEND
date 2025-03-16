@@ -1,0 +1,16 @@
+SELECT P.ID	             AS ID_PARTIDO,
+       P.ID_JORNADA      AS JORNADA,
+       P.ESTADO          AS ESTADO_PARTIDO,   
+       EL.NOMBRE         AS EQUIPO_LOCAL,
+       P.GOLES_LOCAL     AS GOLES_LOCAL,
+       EV.NOMBRE         AS EQUIPO_VISITANTE,
+       P.GOLES_VISITANTE AS GOLES_VISITANTE,
+       L.INDEX           AS INDICE_LANCE,
+       L.MINUTO          AS MINUTO_LANCE,
+       L.ID_LANCE        AS TIPO_LANCE,
+       L.COMENTARIO      AS COMENTARIO
+               
+FROM PARTIDOS P LEFT JOIN LANCES L ON P.ID = L.ID_PARTIDO 
+                                           JOIN EQUIPOS EL ON P.ID_EQUIPO_LOCAL = EL.ID 
+                                           JOIN EQUIPOS EV ON P.ID_EQUIPO_VISITANTE = EV.ID
+WHERE P.ID IN (11, 12)
