@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GestorCentralizadoExcepciones extends ResponseEntityExceptionHandler{
@@ -28,10 +29,20 @@ public class GestorCentralizadoExcepciones extends ResponseEntityExceptionHandle
 	
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		CustomErrorResponse customErrorResponse = new CustomErrorResponse("No existe end-point para atender esta petición.");
+		CustomErrorResponse customErrorResponse = new CustomErrorResponse("El método [" + ex.getMethod() + "] no se permite.");
 		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(customErrorResponse);
 	}
 
+	// **********************************************************************************
+	
+	@Override
+	protected ResponseEntity<Object> handleNoResourceFoundException(NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		CustomErrorResponse customErrorResponse = new CustomErrorResponse("Recurso no encontrado.");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(customErrorResponse);
+	}
+	
+	// **********************************************************************************
+	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex){
 	
@@ -62,6 +73,7 @@ public class GestorCentralizadoExcepciones extends ResponseEntityExceptionHandle
 		
 		return ResponseEntity.internalServerError().body(customErrorResponse);
 	}
-	
 
+	// **********************************************************************************
+	
 }
