@@ -18,10 +18,12 @@ import com.rauxasoft.liga_futbol.business.services.PartidoServices;
 import com.rauxasoft.liga_futbol.integration.repositories.LanceSimuladoRepository;
 import com.rauxasoft.liga_futbol.integration.repositories.PartidoRepository;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin
+@Hidden
 public class TriggerController {
 	
 	private Thread thread;

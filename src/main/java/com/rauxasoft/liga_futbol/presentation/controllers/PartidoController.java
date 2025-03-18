@@ -3,6 +3,7 @@ package com.rauxasoft.liga_futbol.presentation.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rauxasoft.liga_futbol.business.model.Partido;
 import com.rauxasoft.liga_futbol.business.services.PartidoServices;
+import com.rauxasoft.liga_futbol.presentation.config.PresentationException;
 
 @RestController
 @CrossOrigin
@@ -29,12 +31,15 @@ public class PartidoController {
 	}
 	
 	@GetMapping("/{id}")
-	public Partido read(@PathVariable Long id) {
+	public Partido getPartido(@PathVariable Long id) {
 		
 		Optional<Partido> optional = partidoServices.read(id);
 		
-		return optional.get();
+		if(optional.isEmpty()) {
+			throw new PresentationException("No existe el partido con ID " + id, HttpStatus.NOT_FOUND);
+		}
 		
+		return optional.get();
 	}
 
 }

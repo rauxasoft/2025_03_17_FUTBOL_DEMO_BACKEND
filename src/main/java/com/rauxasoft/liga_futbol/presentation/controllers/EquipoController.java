@@ -1,14 +1,18 @@
 package com.rauxasoft.liga_futbol.presentation.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rauxasoft.liga_futbol.business.model.Equipo;
 import com.rauxasoft.liga_futbol.business.services.EquipoServices;
+import com.rauxasoft.liga_futbol.presentation.config.PresentationException;
 
 @RestController
 @CrossOrigin
@@ -24,6 +28,18 @@ public class EquipoController {
 	@GetMapping
 	public List<Equipo> getAll(){
 		return equipoServices.getAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Equipo getEquipo(@PathVariable Long id) {
+		
+		Optional<Equipo> optional = equipoServices.read(id);
+		
+		if(optional.isEmpty()) {
+			throw new PresentationException("No existe el equipo con ID " + id, HttpStatus.NOT_FOUND);
+		}
+		
+		return optional.get();
 	}
 	
 }
