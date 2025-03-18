@@ -1,16 +1,17 @@
-INSERT INTO EQUIPOS (ID, NOMBRE, CIUDAD, FECHA_FUNDACION) VALUES
-(100, 'Real Madrid', 'Madrid', '1910-10-23'),
-(101, 'F.C. Barcelona', 'Barcelona', '1899-04-16'),
-(102, 'Athletic Bilbao', 'Bilbao', '1898-02-01'),
-(103, 'Real Sociedad', 'San Sebastián', '1912-09-11');
 
-INSERT INTO ARBITROS(ID, NOMBRE, APELLIDO1, APELLIDO2) VALUES
-(1, 'Segundo', 'Melero', 'Molano'),
-(2, 'José Ramón', 'Lentijo', 'Pereira'),
-(3, 'Carmelo', 'Fuentes', 'Badalejo'),
-(4, 'Juan José', 'Badimón', 'Altamira'),
-(5, 'Carlos', 'Farriño', 'Buruanda'),
-(6, 'Marcos', 'Cortés', 'Cantalejo');
+INSERT INTO EQUIPOS (ID, CUMPLE_FAIR_PLAY_FINANCIERO, RANKING_EUROPEO, NOMBRE, CIUDAD, FECHA_FUNDACION, PRESIDENTE, LINK_ESCUDO) VALUES
+(100, TRUE, 1, 'Real Madrid', 'Madrid', '1910-10-23','Florencio Sánchez','http://elmiradorespagnol.free.fr/futbol/original/Real%20Madrid.png'),
+(101, TRUE, 12, 'F.C. Barcelona', 'Barcelona', '1899-04-16','Joel Finestres','http://elmiradorespagnol.free.fr/futbol/original/Barcelona.png'),
+(102, TRUE, 41,'Athletic Bilbao', 'Bilbao', '1898-02-01','Anna Losada','http://elmiradorespagnol.free.fr/futbol/original/Athletic%20Bilbao.gif'),
+(103, TRUE, 78,'Real Sociedad', 'San Sebastián', '1912-09-11','Carloto Ruiz','http://elmiradorespagnol.free.fr/futbol/original/Real%20Sociedad.gif');
+
+INSERT INTO ARBITROS(ID, NOMBRE, APELLIDO1, APELLIDO2, FECHA_NACIMIENTO, COLEGIO) VALUES
+(1, 'Segundo', 'Melero', 'Molano', '1997-10-21', 'Andaluz'),
+(2, 'José Ramón', 'Lentijo', 'Pereira', '2000-01-08', 'Extremeño'),
+(3, 'Carmelo', 'Fuentes', 'Badalejo', '2000-01-08', 'Extremeño'),
+(4, 'Juan José', 'Badimón', 'Altamira', '2000-01-08', 'Extremeño'),
+(5, 'Carlos', 'Farriño', 'Buruanda', '2000-01-08', 'Extremeño'),
+(6, 'Marcos', 'Cortés', 'Cantalejo', '2000-01-08', 'Extremeño');
 
 
 INSERT INTO PARTIDOS (ID, ID_JORNADA, ID_ARBITRO, FECHA, ID_EQUIPO_LOCAL, ID_EQUIPO_VISITANTE, ESTADO, GOLES_LOCAL, GOLES_VISITANTE) VALUES

@@ -1,10 +1,13 @@
 package com.rauxasoft.liga_futbol.business.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="ARBITROS")
@@ -16,6 +19,11 @@ public class Arbitro {
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fechaNacimiento;
+	
+	private String colegio;
 	
 	public Arbitro() {
 		
@@ -51,6 +59,22 @@ public class Arbitro {
 
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
+	}
+	
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getColegio() {
+		return colegio;
+	}
+
+	public void setColegio(String colegio) {
+		this.colegio = colegio;
 	}
 
 	@Override

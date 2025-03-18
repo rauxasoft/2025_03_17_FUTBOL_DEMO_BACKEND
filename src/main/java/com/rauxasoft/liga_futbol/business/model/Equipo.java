@@ -30,6 +30,10 @@ public class Equipo implements Serializable {
 	@Column(name="FECHA_FUNDACION")
 	private Date fechaFundacion;
 	
+	private Boolean cumpleFairPlayFinanciero;
+	private String presidente;
+	private String linkEscudo;
+	
 	public Equipo() {
 		
 	}
@@ -68,6 +72,30 @@ public class Equipo implements Serializable {
 
 	public void setFechaFundacion(Date fechaFundacion) {
 		this.fechaFundacion = fechaFundacion;
+	}
+	
+	public Boolean getCumpleFairPlayFinanciero() {
+		return cumpleFairPlayFinanciero;
+	}
+
+	public void setCumpleFairPlayFinanciero(Boolean cumpleFairPlayFinanciero) {
+		this.cumpleFairPlayFinanciero = cumpleFairPlayFinanciero;
+	}
+
+	public String getPresidente() {
+		return presidente;
+	}
+
+	public void setPresidente(String presidente) {
+		this.presidente = presidente;
+	}
+
+	public String getLinkEscudo() {
+		return linkEscudo;
+	}
+
+	public void setLinkEscudo(String linkEscudo) {
+		this.linkEscudo = linkEscudo;
 	}
 
 	@Override
