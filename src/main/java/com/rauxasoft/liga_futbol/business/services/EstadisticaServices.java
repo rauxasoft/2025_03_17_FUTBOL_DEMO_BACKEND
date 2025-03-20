@@ -6,6 +6,6 @@ import com.rauxasoft.liga_futbol.business.model.dtos.EstadisticasEquipo;
 
 public interface EstadisticaServices {
 
-	Map<Integer, EstadisticasEquipo> getClasificacion();
+	Map<Long, EstadisticasEquipo> getClasificacion();
 	
 }

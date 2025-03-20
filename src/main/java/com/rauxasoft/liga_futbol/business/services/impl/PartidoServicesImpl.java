@@ -23,6 +23,11 @@ public class PartidoServicesImpl implements PartidoServices {
 	public List<Partido> getAll() {
 		return partidoRepository.findAll();
 	}
+	
+	@Override
+	public List<Partido> getPartidosNoPendientes() {
+		return partidoRepository.getPartidosNoPendientes();
+	}
 
 	@Override
 	public Optional<Partido> read(Long id) {
@@ -40,5 +45,11 @@ public class PartidoServicesImpl implements PartidoServices {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Object[]> getEstadisticasPartidos() {
+		return partidoRepository.getEstadisticaPartidos();
+	}
+	
 
 }

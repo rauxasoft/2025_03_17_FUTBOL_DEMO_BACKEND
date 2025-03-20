@@ -1,16 +1,13 @@
 package com.rauxasoft.liga_futbol.business.services.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.springframework.stereotype.Service;
 
 import com.rauxasoft.liga_futbol.business.model.Equipo;
-import com.rauxasoft.liga_futbol.business.model.Lance;
 import com.rauxasoft.liga_futbol.business.model.Partido;
 import com.rauxasoft.liga_futbol.business.model.dtos.EstadisticasEquipo;
 import com.rauxasoft.liga_futbol.business.services.EquipoServices;
@@ -29,94 +26,135 @@ public class EstadisticaServicesImpl implements EstadisticaServices {
 	}
 	
 	@Override
-	public Map<Integer, EstadisticasEquipo> getClasificacion() {
-			
-		Map<Equipo, EstadisticasEquipo> tablaEquipos = new HashMap<>();
-		Map<Integer, EstadisticasEquipo> tabla = new TreeMap<>();
+	public Map<Long, EstadisticasEquipo> getClasificacion() {
+		
+		// 0.- MONTAMOS LA TABLA DE EQUIPOS CON SUS ESTADISTICAS
 		
 		List<Equipo> equipos = equipoServices.getAll();
 		
-		for(int i = 0; i < equipos.size(); i++) {
-			tablaEquipos.put(equipos.get(i), new EstadisticasEquipo(i, equipos.get(i)));
+		Map<Long, EstadisticasEquipo> tablaEquipos = new HashMap<>();
+		
+		for(Equipo equipo: equipos) {
+			tablaEquipos.put(equipo.getId(), new EstadisticasEquipo(equipo.getId(), equipo.getNombre()));
 		}
 		
-		List<Partido> partidos = partidoServices.getAll();
+		// 1.- CALCULAMOS NÚMERO DE PARTIDOS JUGADOS
 		
-		for(Partido partido: partidos) {
+		List<Partido> partidosComputables = partidoServices.getPartidosNoPendientes();
+		
+		for(Partido partido: partidosComputables) {
+			Long idEquipoLocal = partido.getLocal().getId();
+			Long idEquipoVisitante = partido.getVisitante().getId();
+			tablaEquipos.get(idEquipoLocal).incrementarLocalPartidosJugados();
+			tablaEquipos.get(idEquipoVisitante).incrementarVisitantePartidosJugados();
+		}
+		
+		// 2.- CALCULAMOS NÚMERO DE GOLES A FAVOR Y EN CONTRA
+		
+		List<Object[]> datos = partidoServices.getEstadisticasPartidos();
+		
+		Iterator<Object[]> iterator = datos.iterator();
+		
+		int totalGolesLocal = 0;
+		int totalGolesVisitante = 0;
+		Long idPartidoActual = (Long) datos.get(0)[0];
+		Long idEquipoLocal = null;
+		Long idEquipoVisitante = null;
+		String lance;
+		
+		while(iterator.hasNext()) {
 			
-			Equipo local = partido.getLocal();
-			Equipo visitante = partido.getVisitante();
+			Object[] fila = iterator.next();
 			
-			List<Lance> lances = partido.getLances();
+			Long idPartido = (Long) fila[0];
+		
+			// Si hay rotura de control
 			
-			boolean iniciado = false; 
-			
-			if(lances != null) {
-				iniciado = lances.stream().map(x -> x.getTipoLance().getNombre()).anyMatch(x -> x.equals("INICIO_DEL_PARTIDO"));
+			if(idPartido != idPartidoActual) {
+				generarEstadistica(tablaEquipos, idEquipoLocal, totalGolesLocal, idEquipoVisitante, totalGolesVisitante);
+				totalGolesLocal = 0;
+				totalGolesVisitante = 0;
+				idPartidoActual = idPartido;
 			}
 			
-			if(iniciado) {
+			idEquipoLocal = (Long) fila[1];
+			idEquipoVisitante = (Long) fila[2];
+			lance = (String) fila[3];
 			
-				int localGolesFavor = 0;
-				int visitanteGolesFavor = 0;
+			System.out.println(idPartido + " " + idEquipoLocal + " " + idEquipoVisitante + " " + lance);
+			
+			// Acumulamos info (siempre se debe hacer)
+			
+			switch(lance) {
+			
+				case "GOL_LOCAL": {
+					tablaEquipos.get(idEquipoLocal).addLocalGolesFavor(1);
+					tablaEquipos.get(idEquipoVisitante).addVisitanteGolesContra(1);
+					++totalGolesLocal;
+					break;
+				}
 				
-				for(Lance lance: lances) {
-					
-					String nombreLance = lance.getTipoLance().getNombre();
-					
-					switch(nombreLance) {
-						case "GOL_LOCAL": 			  localGolesFavor++;     break;
-						case "GOL_LOCAL_ANULADO": 	  localGolesFavor--;     break;
-						case "GOL_VISITANTE": 		  visitanteGolesFavor++; break;						
-						case "GOL_VISITANTE_ANULADO": visitanteGolesFavor--; break;
-						default: break;
-					}
+				case "GOL_VISITANTE": {
+					tablaEquipos.get(idEquipoLocal).addLocalGolesContra(1);
+					tablaEquipos.get(idEquipoVisitante).addVisitanteGolesFavor(1);
+					++totalGolesVisitante;
+					break;
+				}
+				
+				case "GOL_LOCAL_ANULADO": {
+					tablaEquipos.get(idEquipoLocal).addLocalGolesFavor(-1);
+					tablaEquipos.get(idEquipoVisitante).addVisitanteGolesContra(-1);
+					--totalGolesLocal;
+					break;
+				}
+				
+				case "GOL_VISITANTE_ANULADO":{
+					tablaEquipos.get(idEquipoLocal).addLocalGolesContra(-1);
+					tablaEquipos.get(idEquipoVisitante).addVisitanteGolesFavor(-1);
+					--totalGolesVisitante;
+					break;
+				}
+			}
+				
+		}
+		
+		generarEstadistica(tablaEquipos, idEquipoLocal, totalGolesLocal, idEquipoVisitante, totalGolesVisitante);
+		
+		// El problema será establecer el orden de la clasificación! Esto viene ahora...
 	
-				}
-				
-				EstadisticasEquipo estadisticasEquipoLocal = tablaEquipos.get(local);
-				EstadisticasEquipo estadisticasEquipoVisitante = tablaEquipos.get(visitante);
-				
-				estadisticasEquipoLocal.incrementarLocalPartidosJugados();
-				estadisticasEquipoLocal.addLocalGolesFavor(localGolesFavor);
-				estadisticasEquipoLocal.addLocalGolesContra(visitanteGolesFavor);
-				
-				estadisticasEquipoVisitante.incrementarVisitantePartidosJugados();
-				estadisticasEquipoVisitante.addVisitanteGolesFavor(visitanteGolesFavor);
-				estadisticasEquipoVisitante.addVisitanteGolesContra(localGolesFavor);
-				
-				if (localGolesFavor == visitanteGolesFavor) {
-					estadisticasEquipoLocal.incrementarLocalPartidosEmpatados();
-					estadisticasEquipoVisitante.incrementarLocalPartidosEmpatados();
-				} else {
-					if(localGolesFavor > visitanteGolesFavor) {
-						estadisticasEquipoLocal.incrementarLocalPartidosGanados();
-						estadisticasEquipoVisitante.incrementarVisitantePartidosPerdidos();
-					} else {
-						estadisticasEquipoLocal.incrementarLocalPartidosPerdidos();
-						estadisticasEquipoVisitante.incrementarVisitantePartidosGanados();
-					}
-				}
-			}
-				
-		}
+		Map<Long, EstadisticasEquipo> tabla = new HashMap<>();
 		
-		List<EstadisticasEquipo> estadisticaEquipos = new ArrayList<>( tablaEquipos.values());
-		Collections.sort(estadisticaEquipos);
-		
-		// TODO 
-		
-		// 1.- Mirar el "cara a cara" entre posibles equipos empatados a puntos (
-		// 2.- Si persiste la igualdad se mira el gol average
-		
-		int i = 0;
-		
-		for(EstadisticasEquipo estadisticaEquipo: estadisticaEquipos) {
-			tabla.put(i, estadisticaEquipo);
-			i++;
-		}
+		tablaEquipos.forEach((k, v) -> {
+			tabla.put(k, v);
+		});
 		
 		return tabla;
+	}
+	
+	// ******************************************************************************
+	//
+	// 							  Private Methods
+	//
+	// ******************************************************************************
+	
+	private void generarEstadistica(Map<Long, EstadisticasEquipo> tablaEquipos, Long idEquipoLocal, int totalGolesLocal, Long idEquipoVisitante, int totalGolesVisitante) {
+		
+		if(totalGolesLocal == totalGolesVisitante) {
+			tablaEquipos.get(idEquipoLocal).incrementarLocalPartidosEmpatados();
+			tablaEquipos.get(idEquipoVisitante).incrementarVisitantePartidosEmpatados();
+		}
+		
+		if(totalGolesLocal > totalGolesVisitante) {
+			tablaEquipos.get(idEquipoLocal).incrementarLocalPartidosGanados();
+			tablaEquipos.get(idEquipoVisitante).incrementarVisitantePartidosPerdidos();
+		}
+		
+		if(totalGolesLocal < totalGolesVisitante) {
+			tablaEquipos.get(idEquipoLocal).incrementarLocalPartidosPerdidos();
+			tablaEquipos.get(idEquipoVisitante).incrementarVisitantePartidosGanados();
+		}
+		
+		System.out.println("RESUMIMOS");
 	}
 
 }

@@ -23,7 +23,7 @@ public class ClasificacionController {
 	
 	@GetMapping
 	public Object getClasificacion() {
-		Map<Integer, EstadisticasEquipo> estadisticas = estadisticaServices.getClasificacion();
+		Map<Long, EstadisticasEquipo> estadisticas = estadisticaServices.getClasificacion();
 		return estadisticas;
 	}
 	

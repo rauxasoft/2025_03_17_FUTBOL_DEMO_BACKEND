@@ -3,11 +3,13 @@ package com.rauxasoft.liga_futbol.business.model.dtos;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class EstadisticasEquipo implements Serializable, Comparable<EstadisticasEquipo> {
+import com.rauxasoft.liga_futbol.business.model.Equipo;
+
+public class EstadisticasEquipo_BK implements Serializable, Comparable<EstadisticasEquipo_BK> {
 	private static final long serialVersionUID = 1L;
 	
-	private Long idEquipo;
-	private String nombreEquipo;
+	private int clasificacion;
+	private Equipo equipo;
 	
 	private int localPartidosJugados;
 	private int localPartidosGanados;
@@ -23,28 +25,28 @@ public class EstadisticasEquipo implements Serializable, Comparable<Estadisticas
 	private int visitanteGolesFavor;
 	private int visitanteGolesContra;
 	
-	public EstadisticasEquipo(Long idEquipo, String nombreEquipo) {
-		this.idEquipo = idEquipo;
-		this.nombreEquipo = nombreEquipo;
+	public EstadisticasEquipo_BK(int clasificacion, Equipo equipo) {
+		this.clasificacion = clasificacion;
+		this.equipo = equipo;
 	}
 	
-	public Long getIdEquipo() {
-		return idEquipo;
+	public int getClasificacion() {
+		return clasificacion;
 	}
 
-	public void setIdEquipo(Long idEquipo) {
-		this.idEquipo = idEquipo;
+	public void setClasificacion(int clasificacion) {
+		this.clasificacion = clasificacion;
+	}
+
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
 	}
 	
 	// **************** GETTERS/SETTERS LOCAL *******************
-
-	public String getNombreEquipo() {
-		return nombreEquipo;
-	}
-
-	public void setNombreEquipo(String nombreEquipo) {
-		this.nombreEquipo = nombreEquipo;
-	}
 
 	public int getLocalPartidosJugados() {
 		return localPartidosJugados;
@@ -185,7 +187,7 @@ public class EstadisticasEquipo implements Serializable, Comparable<Estadisticas
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idEquipo);
+		return Objects.hash(clasificacion);
 	}
 
 	@Override
@@ -196,12 +198,12 @@ public class EstadisticasEquipo implements Serializable, Comparable<Estadisticas
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EstadisticasEquipo other = (EstadisticasEquipo) obj;
-		return Objects.equals(idEquipo, other.idEquipo);
+		EstadisticasEquipo_BK other = (EstadisticasEquipo_BK) obj;
+		return clasificacion == other.clasificacion;
 	}
 
 	@Override
-	public int compareTo(EstadisticasEquipo o) {
+	public int compareTo(EstadisticasEquipo_BK o) {
 		
 		if(this.getTotalPuntos() != o.getTotalPuntos()) {
 			return o.getTotalPuntos() - this.getTotalPuntos();
