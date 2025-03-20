@@ -13,7 +13,6 @@ INSERT INTO ARBITROS(ID, NOMBRE, APELLIDO1, APELLIDO2, FECHA_NACIMIENTO, COLEGIO
 (5, 'Carlos', 'Farriño', 'Buruanda', '2000-01-08', 'Extremeño'),
 (6, 'Marcos', 'Cortés', 'Cantalejo', '2000-01-08', 'Extremeño');
 
-
 INSERT INTO PARTIDOS (ID, ID_JORNADA, ID_ARBITRO, FECHA, ID_EQUIPO_LOCAL, ID_EQUIPO_VISITANTE, ESTADO, GOLES_LOCAL, GOLES_VISITANTE) VALUES
 (1,  1, 1, TIMESTAMP '2024-11-03 17:00', 100, 101, 'FINALIZADO', 1, 4),
 (2,  1, 2, TIMESTAMP '2024-11-03 17:00', 102, 103, 'FINALIZADO', 1, 1),
@@ -45,7 +44,13 @@ INSERT INTO TIPOS_LANCE (ID) VALUES
 ('GOL_LOCAL_ANULADO'),
 ('GOL_VISITANTE_ANULADO');
 
--- Jornada 1
+-- ********************************************************************************
+--
+--                                   Jornada 1 
+--
+-- ********************************************************************************
+
+-- Partido 1
 
 INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 ( 0, 1, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'    , 'Rueda el balón'), 
@@ -69,6 +74,8 @@ INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENT
 (18, 1, TIMESTAMP '2024-11-03 17:00',104, 'COMENTARIO'    	      , 'Será divertido ver los comentarios de Roncero en el postpartido'),
 (19, 1, TIMESTAMP '2024-11-03 17:00',105, 'FINAL_DEL_PARTIDO'     , 'Pita el final Honorio Mesquides. Debacle del equipo merengue. El Barça sale reforzado');
 
+-- Partido 2
+
 INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 ( 0, 2, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'    , 'Empieza el encuentro'),
 ( 1, 2, TIMESTAMP '2024-11-03 17:32', 39, 'COMENTARIO'            , 'Fuera de juego de Lorenzo'),
@@ -80,7 +87,13 @@ INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENT
 ( 7, 2, TIMESTAMP '2024-11-03 17:00', 87, 'COMENTARIO'            , 'Muy mal Nico Williams. Nada que ver con el nivel mostrado en la Eurocopa. Su magia se apaga por momentos.'),
 ( 8, 2, TIMESTAMP '2024-11-03 17:00', 90, 'FINAL_DEL_PARTIDO'     , 'Fin del partido. Ni un minuto de prolongación. Tablas en el marcador y punto de oro para los visitantes');
 
--- Jornada 2
+-- ********************************************************************************
+--
+--                                   Jornada 2
+--
+-- ********************************************************************************
+
+-- Partido 3
 
 INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 ( 0, 3, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'    , 'Inicia el encuentro el colegiado Marcelo Redondo'), 
@@ -94,6 +107,8 @@ INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENT
 ( 8, 3, TIMESTAMP '2024-11-03 17:00', 88, 'TARJETA_AMARILLA'      , 'A Badimón por perder tiempo en un saque de banda'),
 ( 9, 3, TIMESTAMP '2024-11-03 17:00', 89, 'GOL_LOCAL'    		  , 'Empata Carlos Marín'),
 (10, 3, TIMESTAMP '2024-11-03 17:00', 94, 'FINAL_DEL_PARTIDO'     , 'Empate justo en el marcador');
+
+-- Partido 4
 
 INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 ( 0, 4, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'    , 'Rueda el balón en el Reale Arena'), 
@@ -111,13 +126,43 @@ INSERT INTO LANCES (INDEX, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENT
 (12, 4, TIMESTAMP '2024-11-03 17:00', 89, 'GOL_LOCAL'    		  , 'Recorta distancias Oyarzabal'),
 (13, 4, TIMESTAMP '2024-11-03 17:00', 94, 'FINAL_DEL_PARTIDO'     , 'Pita el final Rodríguez Rodríguez. Debacle del equipo txuriurdin. El Madrid sale reforzado');
 
--- Jornada 3
+-- ********************************************************************************
+--
+--                                   Jornada 3
+--
+-- ********************************************************************************
 
--- Jornada 4
+-- Partido 5
 
--- Jornada 5
+-- Partido 6
 
--- Jornada 6
+-- ********************************************************************************
+--
+--                                   Jornada 4
+--
+-- ********************************************************************************
+
+-- Partido 7
+
+-- Partido 8
+
+-- ********************************************************************************
+--
+--                                   Jornada 5
+--
+-- ********************************************************************************
+
+-- Partido 9
+
+-- Partido 10
+
+-- ********************************************************************************
+--
+--                                   Jornada 6 (EN SIMULADOR_LANCES)
+--
+-- ********************************************************************************
+
+-- Partido 11
 
 INSERT INTO SIMULADOR_LANCES (ID, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 ( 0, 11, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'   , 'Rueda el balón'), 
@@ -138,6 +183,8 @@ INSERT INTO SIMULADOR_LANCES (ID, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE,
 (15, 11, TIMESTAMP '2024-11-03 17:00', 88, 'TARJETA_AMARILLA'     , 'A Mbappe, por protestar'),
 (16, 11, TIMESTAMP '2024-11-03 17:00', 89, 'GOL_LOCAL'     	      , 'BACALO BACALAO BACALAO BACALAOOOOOOOOOOOOOOOOOOOOO!!! Gol de Lekue!! Impresionante remate de cabeza'),
 (17, 11, TIMESTAMP '2024-11-03 17:00', 93, 'FINAL_DEL_PARTIDO'    , 'Pita el final Sobrino Magan. Muy correcto el arbitraje del árbitro manchego');
+
+-- Partido 12
 
 INSERT INTO SIMULADOR_LANCES (ID, ID_PARTIDO, INSTANTE_TIEMPO, MINUTO, ID_LANCE, COMENTARIO) VALUES
 (18, 12, TIMESTAMP '2024-11-03 17:00',  0, 'INICIO_DEL_PARTIDO'   , 'Empieza el partido en el Camp Nou'),
