@@ -33,7 +33,7 @@ public class Equipo implements Serializable {
 	private Boolean cumpleFairPlayFinanciero;
 	private String presidente;
 	private String linkEscudo;
-	
+
 	public Equipo() {
 		
 	}

@@ -96,7 +96,7 @@ public class TriggerController {
 			int partido12_golesLocal = 0;
 			int partido12_golesVisitante = 0;
 						
-			while(tiempoDeJuego.getMinuto() <= 95) {
+			while(tiempoDeJuego.getMinuto() <= 110) {
 				
 				try {
 					
@@ -146,7 +146,7 @@ public class TriggerController {
 								partido11.setGolesLocal(++partido11_golesLocal);
 							}
 							
-							if (tipoLance.getNombre().equals("GOL_LOCA_ANULADO")) {
+							if (tipoLance.getNombre().equals("GOL_LOCAL_ANULADO")) {
 								partido11.setGolesLocal(--partido11_golesLocal);
 							}
 							
@@ -154,7 +154,7 @@ public class TriggerController {
 								partido11.setGolesLocal(++partido11_golesVisitante);
 							}
 							
-							if (tipoLance.getNombre().equals("GOL_LOCA_ANULADO")) {
+							if (tipoLance.getNombre().equals("GOL_VISITANTE_ANULADO")) {
 								partido11.setGolesLocal(--partido11_golesVisitante);
 							}
 							
@@ -175,7 +175,7 @@ public class TriggerController {
 								partido12.setGolesLocal(++partido12_golesLocal);
 							}
 							
-							if (tipoLance.getNombre().equals("GOL_LOCA_ANULADO")) {
+							if (tipoLance.getNombre().equals("GOL_LOCAL_ANULADO")) {
 								partido12.setGolesLocal(--partido12_golesLocal);
 							}
 							
@@ -183,7 +183,7 @@ public class TriggerController {
 								partido12.setGolesLocal(++partido12_golesVisitante);
 							}
 							
-							if (tipoLance.getNombre().equals("GOL_LOCA_ANULADO")) {
+							if (tipoLance.getNombre().equals("GOL_VISITANTE_ANULADO")) {
 								partido12.setGolesLocal(--partido12_golesVisitante);
 							}
 							

@@ -2,7 +2,7 @@
 INSERT INTO EQUIPOS (ID, CUMPLE_FAIR_PLAY_FINANCIERO, RANKING_EUROPEO, NOMBRE, CIUDAD, FECHA_FUNDACION, PRESIDENTE, LINK_ESCUDO) VALUES
 (100, TRUE, 1, 'Real Madrid', 'Madrid', '1910-10-23','Florencio Sánchez','http://elmiradorespagnol.free.fr/futbol/original/Real%20Madrid.png'),
 (101, TRUE, 12, 'F.C. Barcelona', 'Barcelona', '1899-04-16','Joel Finestres','http://elmiradorespagnol.free.fr/futbol/original/Barcelona.png'),
-(102, TRUE, 41,'Athletic Bilbao', 'Bilbao', '1898-02-01','Anna Losada','http://elmiradorespagnol.free.fr/futbol/original/Athletic%20Bilbao.gif'),
+(102, FALSE, 41,'Athletic Bilbao', 'Bilbao', '1898-02-01','Anna Losada','http://elmiradorespagnol.free.fr/futbol/original/Athletic%20Bilbao.gif'),
 (103, TRUE, 78,'Real Sociedad', 'San Sebastián', '1912-09-11','Carloto Ruiz','http://elmiradorespagnol.free.fr/futbol/original/Real%20Sociedad.gif');
 
 INSERT INTO ARBITROS(ID, NOMBRE, APELLIDO1, APELLIDO2, FECHA_NACIMIENTO, COLEGIO) VALUES

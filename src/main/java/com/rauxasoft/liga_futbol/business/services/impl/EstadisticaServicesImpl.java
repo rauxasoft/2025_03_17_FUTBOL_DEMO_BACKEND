@@ -81,7 +81,7 @@ public class EstadisticaServicesImpl implements EstadisticaServices {
 			idEquipoVisitante = (Long) fila[2];
 			lance = (String) fila[3];
 			
-			System.out.println(idPartido + " " + idEquipoLocal + " " + idEquipoVisitante + " " + lance);
+			// System.out.println(idPartido + " " + idEquipoLocal + " " + idEquipoVisitante + " " + lance);
 			
 			// Acumulamos info (siempre se debe hacer)
 			
@@ -154,7 +154,6 @@ public class EstadisticaServicesImpl implements EstadisticaServices {
 			tablaEquipos.get(idEquipoVisitante).incrementarVisitantePartidosGanados();
 		}
 		
-		System.out.println("RESUMIMOS");
 	}
 
 }
