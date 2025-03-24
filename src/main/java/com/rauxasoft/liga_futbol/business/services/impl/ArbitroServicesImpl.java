@@ -9,6 +9,8 @@ import com.rauxasoft.liga_futbol.business.model.Arbitro;
 import com.rauxasoft.liga_futbol.business.services.ArbitroServices;
 import com.rauxasoft.liga_futbol.integration.repositories.ArbitroRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ArbitroServicesImpl implements ArbitroServices {
 
@@ -27,5 +29,35 @@ public class ArbitroServicesImpl implements ArbitroServices {
 	public List<Arbitro> getAll() {
 		return arbitroRepository.findAll();
 	}
+
+	@Override
+	@Transactional
+	public Long create(Arbitro arbitro) {
+	
+		if (arbitro.getId() != null) {
+			throw new RuntimeException("Para crear un árbitro su ID ha de ser null");
+		}
+		
+		Arbitro createdArbitro = arbitroRepository.save(arbitro);
+		
+		return createdArbitro.getId();
+	}
+
+	@Override
+	@Transactional
+	public void update(Arbitro arbitro) {
+
+		Long id = arbitro.getId(); 
+		
+		boolean existe = arbitroRepository.existsById(id);
+		
+		if(!existe) {
+			throw new IllegalStateException("El árbitro con ID [" + id + "] no existe.");
+		}
+		
+		arbitroRepository.save(arbitro);
+		
+	}
+
 
 }

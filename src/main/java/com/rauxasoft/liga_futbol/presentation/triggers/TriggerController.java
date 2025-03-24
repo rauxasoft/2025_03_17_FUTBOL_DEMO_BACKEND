@@ -47,6 +47,8 @@ public class TriggerController {
 	@Transactional
 	public String reset() {
 		
+		System.out.println("Se va a resetear la última jornada...");
+		
 		tiempoDeJuego.reset();
 		
 		Optional<Partido> optional11 = partidoServices.read(11L);
@@ -66,7 +68,7 @@ public class TriggerController {
 		partido12.getLances().clear();
 		
 		if (this.thread != null) {
-			System.out.println("Finalizando Thread de la última jornada");
+			System.out.println("Finalizando Thread de la última jornada con nombre " + this.thread.getName());
 			this.thread.interrupt();
 		}
 		
@@ -216,6 +218,7 @@ public class TriggerController {
 		
 		this.thread = new Thread(runnable);
 		this.thread.start();
+		System.out.println("Nombre del hilo: " + this.thread.getName());
 		
 		
 		return "inicia última jornada";

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -14,6 +15,7 @@ import jakarta.persistence.TemporalType;
 public class Arbitro {
 	
 	@Id
+	@GeneratedValue(generator = "ARBITROS_SEQ")
 	private Long id;
 	
 	private String nombre;
