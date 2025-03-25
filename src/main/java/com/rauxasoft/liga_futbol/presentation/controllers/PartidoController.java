@@ -27,6 +27,15 @@ public class PartidoController {
 	
 	@GetMapping
 	public List<Partido> getAll(){
+		
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		
 		return partidoServices.getAll();
 	}
 	

@@ -33,6 +33,13 @@ public class EquipoController {
 	@GetMapping("/{id}")
 	public Equipo getEquipo(@PathVariable Long id) {
 		
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
 		Optional<Equipo> optional = equipoServices.read(id);
 		
 		if(optional.isEmpty()) {
