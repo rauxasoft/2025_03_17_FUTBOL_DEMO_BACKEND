@@ -7,11 +7,11 @@ INSERT INTO EQUIPOS (ID, CUMPLE_FAIR_PLAY_FINANCIERO, RANKING_EUROPEO, NOMBRE, C
 
 INSERT INTO ARBITROS(ID, NOMBRE, APELLIDO1, APELLIDO2, FECHA_NACIMIENTO, COLEGIO) VALUES
 (1, 'Segundo', 'Melero', 'Molano', '1997-10-21', 'Andaluz'),
-(2, 'José Ramón', 'Lentijo', 'Pereira', '2000-01-08', 'Extremeño'),
-(3, 'Carmelo', 'Fuentes', 'Badalejo', '2000-01-08', 'Extremeño'),
+(2, 'José Ramón', 'Lentijo', 'Pereira', '1996-01-08', 'Extremeño'),
+(3, 'Carmelo', 'Fuentes', 'Badalejo', '2001-01-08', 'Balear'),
 (4, 'Juan José', 'Badimón', 'Altamira', '2000-01-08', 'Extremeño'),
-(5, 'Carlos', 'Farriño', 'Buruanda', '2000-01-08', 'Extremeño'),
-(6, 'Marcos', 'Cortés', 'Cantalejo', '2000-01-08', 'Extremeño');
+(5, 'Carlos', 'Farriño', 'Buruanda', '1991-02-23', 'Andaluz'),
+(6, 'Marcos', 'Cortés', 'Cantalejo', '1994-05-10', 'Aragonés');
 
 INSERT INTO PARTIDOS (ID, ID_JORNADA, ID_ARBITRO, FECHA, ID_EQUIPO_LOCAL, ID_EQUIPO_VISITANTE, ESTADO, GOLES_LOCAL, GOLES_VISITANTE) VALUES
 (1,  1, 1, TIMESTAMP '2024-11-03 17:00', 100, 101, 'FINALIZADO', 1, 4),

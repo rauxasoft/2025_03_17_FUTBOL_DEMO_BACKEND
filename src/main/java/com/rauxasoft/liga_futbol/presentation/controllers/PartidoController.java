@@ -41,7 +41,7 @@ public class PartidoController {
 	public Partido getPartido(@PathVariable Long id) {
 		
 		try {
-			Thread.sleep(600);
+			Thread.sleep(20);
 		} catch (InterruptedException e) {
 			
 		}
